@@ -1,0 +1,27 @@
+name: Deploy # 部署
+
+on: # 触发条件
+  push:
+    branches:
+      - main # 推送到 main 分支（这里的分支名很重要，不要弄错了
+
+  workflow_dispatch: # 手动触发
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          personal_token: ${{ secrets.GITHUBTOKEN }}
+          publish_dir: .
+          external_repository: QianFuv/Miracles-Journey-List
+          publish_branch: main
+          allow_empty_commit: true
